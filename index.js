@@ -4,6 +4,7 @@ const chatBox = get('main');
 
 appendMessage('bot', 'This is a bot bubble');
 appendMessage('user', 'This is a user bubble');
+appendMessage("bot", "Is your situation urgent")
 
 chatForm.addEventListener('submit', event => {
   event.preventDefault();
