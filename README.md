@@ -12,9 +12,13 @@ Gather information on the patient:
     * what are your symptoms?
     * what is your age?
     * what is your pain out of 10?
+	+ did not help the prompt => the prompt generated other questions, so 
+	  we dropped it
+    * "I do/dont have fever" => the prompt generated other questions, so dropped
 - Generate prompt
     * give the context: "You are a doctor."
     * give user information
+
 
 ## Parameters
 

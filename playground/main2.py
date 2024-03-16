@@ -54,6 +54,7 @@ timeline = "weeks"
 
 prompt2 = f"""
 I am a {patient_sex} and {patient_age} years old. I have {", ".join(patient_symptoms)}. 
+My pain level is {pain_level} out of 10.
 
 Do I have to go to the hospital? I only want to go to the hospital if it is really urgent.
 """
