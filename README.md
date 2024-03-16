@@ -42,8 +42,12 @@ Gather information on the patient:
 - do_sample: Not used
     * was returning nimporte quoi, so we did not used this param
 
+## Performance
+
+- response is correct, except for "ingestion" because not specific enough
+
 ## Improvements we would have done if we had more time
 
-
+- add more subsections which you can find in `misc/notes.md`
 
 
