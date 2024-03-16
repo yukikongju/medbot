@@ -23,7 +23,10 @@ Gather information on the patient:
 - Generate prompt
     * give the context: "You are a doctor."
     * give user information
-
+    * Prompt
+- Note on what we did:
+    * we tried asking for medications with the same patient context, but it failed
+    * we tried temperature, but it didn't help the prompt
 
 ## Parameters
 
@@ -38,5 +41,9 @@ Gather information on the patient:
     * we want enough time for the bot to generate the answer
 - do_sample: Not used
     * was returning nimporte quoi, so we did not used this param
+
+## Improvements we would have done if we had more time
+
+
 
 
