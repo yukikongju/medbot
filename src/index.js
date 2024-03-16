@@ -1,6 +1,13 @@
-const chatForm = get("form");
-const chatInput = get("input");
-const chatBox = get("main");
+const chatForm = get('form');
+const chatInput = get('input');
+const chatBox = get('main');
+const patient_sex=[]
+const patient_age=[]
+const patient_symptoms=[]
+
+
+
+
 
 start();
 
@@ -64,11 +71,12 @@ function appendCheckbox(side, text) {
   submitCheckboxes.addEventListener("click", (event) => {
     let checkboxes = document.querySelectorAll(".messageCheckbox:checked");
     let values = [];
-    checkboxes.forEach((checkbox) => {
-      values.push(checkbox.name);
-    });
-    nextt();
-  });
+      checkboxes.forEach((checkbox) => {
+        patient_symptoms.push(checkbox.name);
+      });
+      console.log(patient_symptoms)
+      nextt(patient_symptoms);
+  })
 }
 
 // Utils
@@ -103,11 +111,12 @@ async function start() {
       );
       appendCheckbox();
     }
-  });
-}
-function nextt() {
-  appendMessage("bot", "What is your assigned at birth gender");
-  const boxe = `<div><input class='gender' type='checkbox' name='male'>Male</div>
+  })
+  
+};
+function nextt(a){
+  appendMessage("bot", 'What is your assigned at birth gender')
+  const boxe=`<div><input class='gender' type='checkbox' name='male'>Male</div>
   <div><input class='gender' type='checkbox' name='female'>Female</div>
   <button id="submitCheckboxesc">"Submit"</button>'`;
   chatBox.insertAdjacentHTML("beforeend", boxe);
@@ -115,21 +124,71 @@ function nextt() {
   submitCheckboxes.addEventListener("click", (event) => {
     let checkboxes = document.querySelectorAll(".gender:checked");
     let values = [];
-    checkboxes.forEach((checkbox) => {
-      values.push(checkbox.name);
-    });
-    nexttt();
-  });
-}
-function nexttt() {
-  appendMessage("bot", "What is your age");
-  chatForm.addEventListener("submit", (event) => {
+      checkboxes.forEach((checkbox) => {
+        patient_sex.push(checkbox.name);
+      });
+      nexttt(a,patient_sex)
+  })
+};
+function nexttt(a,b){
+  appendMessage("bot", 'What is your age')
+  chatForm.addEventListener('submit', event => {
     event.preventDefault();
     const text = chatInput.value;
     if (!text) return;
-    take_input();
-    appendMessage("user", text);
-    chatInput.value = "";
+    take_input()
+    appendMessage('user', text);
+    patient_age.push(text)
+    chatInput.value = '';
   });
+  const prompt =
+ `
+I am a ${b[0]} and ${patient_age[0]} years old. I have ${a.join(" ")}. 
+
+Do I have to go to the hospital? I only want to go to the hospital if it is really urgent.
+`
+  console.log("l")
+  console.log(patient_age)
+  query({
+    "inputs": prompt,
+    "parameters": {parameters_dct}
+}).then((response) => {
+	console.log(JSON.stringify(response));
+  appendMessage("user",response[0]['generated_text'])
+  appendMessage('bot','If you still have any questions, contact 811 or your nearest physician!')
+});
+
 }
+
+parameters_dct = {
+	'top_k': 10,
+	//'top_p': 0.85,
+	'top_p': 0.1,
+	'temperature': 5.0,
+	'max_time': 10.0,
+	// 'max_new_tokens': 500,
+	//'do_sample': True,
+	//'return_full_text': True,
+}
+
+
+async function query(data) {
+	const response = await fetch(
+		"https://xevhza5rhd1jhkq8.us-east-1.aws.endpoints.huggingface.cloud",
+		{
+			headers: { 
+				"Accept" : "application/json",
+				"Content-Type": "application/json" 
+			},
+			method: "POST",
+			body: JSON.stringify(data),
+		}
+	);
+	const result = await response.json();
+	return result;
+}
+
+
+
+
 
