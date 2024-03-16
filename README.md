@@ -17,10 +17,17 @@ Gather information on the patient:
     * give user information
 
 ## Parameters
+
 - temperature: 5.0
     * 10.0 => feels like it didn't take the issues seriously
     * 100.0 => outputing random words
     * 1.0 => too little and outputing the user input
-- 
+- top_p: 0.1
+    * since the diagnostic doesn't change, we want the bot response to be the same 
+      most of the time
+- max_time: 10.0
+    * we want enough time for the bot to generate the answer
+- do_sample: Not used
+    * was returning nimporte quoi, so we did not used this param
 
 
