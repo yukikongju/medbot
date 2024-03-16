@@ -2,6 +2,11 @@
 
 Team: Random Forest
 
+## Usage
+
+Open the `src/index.html` by double clicking the file
+
+
 ## Strategy
 
 Gather information on the patient:
